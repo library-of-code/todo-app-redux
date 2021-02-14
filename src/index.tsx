@@ -3,10 +3,22 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { Provider } from 'react-redux';
+import { createStore, combineReducers } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import todos from './reducers/todosReducer/todosReducer'
+import visibility from './reducers/visibilityReducer/visibilityReducer'
+
+const rootReducer = combineReducers({
+  todos,
+  visibility
+})
 
 ReactDOM.render(
   <React.StrictMode>
+    <Provider store={createStore(rootReducer, composeWithDevTools())}>
     <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
