@@ -1,26 +1,49 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
+import { store } from '.';
 
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  input: string;
+  VisibleList: any[];
+  getVisibilty: any;
+
+  constructor(props: any) {
+    super(props);
+    this.input = "";
+    this.VisibleList = store.getState().todos.filter(
+      todo => this.getVisibilty(todo, store.getState().visibilityFilter)
+    )
+
+    this.getVisibilty = (todo: any, visibility: any) => {
+      var obj: any = {
+        "ALL": todo,
+        "COMPLETED": todo.completed,
+        "PENDING": !todo.completed
+      }
+      return obj[visibility]
+    }
+  }
+
+  render() {
+    return (<div>
+
+      {/* Input Fields */}
+      <input ref={node => { this.input = node?.value || "" }} />
+      <button onClick={() => {
+        store.dispatch({ type: 'ADD_TODO', task: this.input || "" });
+        this.input = ""
+      }} >Add</button>
+
+      <br />
+
+      {/* TodoList */}
+      <div>
+        {this.VisibleList}
+      </div>
+
+
+    </div>)
+  }
 }
 
 export default App;

@@ -1,26 +1,17 @@
 const visibilityReducer = (state = {}, action: any) => {
   switch (action.type) {
     case 'SHOW_ALL':
-      return [...state, ShowAll(
-        state, action
-      )]
-      break;
+      return 'ALL'
 
     case 'SHOW_COMPLETED':
-      return [...state, ShowCompleted(
-        state, action
-      )]
-      break;
+      return 'COMPLETED'
 
-    case 'SHOW_LEFT':
-      return [...state, ShowLeft(
-        state, action
-      )]
-      break
+    case 'SHOW_PENDING':
+      return 'PENDING'
 
   }
 
-  return state
+  return 'ALL'
 }
 
 export default visibilityReducer 

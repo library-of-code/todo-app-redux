@@ -7,17 +7,19 @@ import { Provider } from 'react-redux';
 import { createStore, combineReducers } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import todos from './reducers/todosReducer/todosReducer'
-import visibility from './reducers/visibilityReducer/visibilityReducer'
+import visibilityFilter from './reducers/visibilityReducer/visibilityReducer'
 
 const rootReducer = combineReducers({
   todos,
-  visibility
+  visibilityFilter
 })
+
+export const store = createStore(rootReducer, composeWithDevTools())
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={createStore(rootReducer, composeWithDevTools())}>
-    <App />
+    <Provider store={store}>
+      <App />
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')

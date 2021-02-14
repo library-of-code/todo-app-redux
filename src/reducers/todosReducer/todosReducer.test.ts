@@ -1,5 +1,5 @@
 import expect from 'expect';
-import todoReducer from './todosReducer';
+import todosReducer from './todosReducer';
 
 const state1 = [
     {
@@ -50,34 +50,50 @@ const state3 = [
     }
 ]
 
-// TESTS
+const state4 = [
+    {
+        id: 1,
+        completed: false,
+        task: "ABCD"
+    },
+    {
+        id: 3,
+        completed: false,
+        task: "ASDF"
+    }
+]
 
-/**
- * ADD TODO
- */
-expect(
-    todoReducer(state1, { type: 'ADD_TODO', task: 'ASDF' })
-).toEqual(state2)
+it('add todo', () => {
+    /**
+     * ADD TODO
+     */
+    expect(
+        todosReducer(state1, { type: 'ADD_TODO', task: 'ASDF' })
+    ).toEqual(state2)
+})
 
-/**
- * REMOVE TODO
- */
-expect(
-    todoReducer(state2, { type: 'REMOVE_TODO', id: 3 })
-).toEqual(state1)
+it('remove todo', () => {
+    /**
+     * REMOVE TODO
+     */
+    expect(
+        todosReducer(state2, { type: 'REMOVE_TODO', id: 3 })
+    ).toEqual(state1)
 
-/**
- * TOGGLE TODO
- */
-expect(
-    todoReducer(state2, { type: 'TOGGLE_TODO', id: 3 })
-).toEqual(state3)
+    expect(
+        todosReducer(state2, { type: 'REMOVE_TODO', id: 2 })
+    ).toEqual(state4)
+})
 
-/**
- * TOGGLE TODO
- */
-expect(
-    todoReducer(state3, { type: 'TOGGLE_TODO', id: 3 })
-).toEqual(state2)
+it('toggle todo', () => {
+    /**
+     * TOGGLE TODO
+     */
+    expect(
+        todosReducer(state2, { type: 'TOGGLE_TODO', id: 3 })
+    ).toEqual(state3)
 
-console.log('all tests passed!')
+    expect(
+        todosReducer(state3, { type: 'TOGGLE_TODO', id: 3 })
+    ).toEqual(state2)
+})
